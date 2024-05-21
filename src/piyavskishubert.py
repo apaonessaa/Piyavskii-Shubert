@@ -33,8 +33,8 @@ def algorithm(f, a, b, L, hmax=15, n=1000000, eps=0.0000001, display=False):
     (left,right)=(root,None)
 
     zmin=float('inf')
-    k=0
-    while k<n:
+    k=1
+    while k<=n:
         # Calcolo del minorante
         if left is not None:
             xs=left.getLeft().getX()
@@ -69,10 +69,10 @@ def algorithm(f, a, b, L, hmax=15, n=1000000, eps=0.0000001, display=False):
         if xe-xs<=eps:
             break
         
-        # calcola xt 
+        # calcola xt e set k
         xt=estx(L,xs,xe,z[xs],z[xe])
         left.setX(xt).setK(k)
-        z[xt]=f(xt) 
+        z[xt]=f(xt)
 
         # branch&bound
         if z[xt]<zmin:
@@ -83,7 +83,7 @@ def algorithm(f, a, b, L, hmax=15, n=1000000, eps=0.0000001, display=False):
         # colleziona zmin all'iterazione k
         if display:
             states[k]={}
-            states[k]['nodes']=[copy.copy(leaf) for R,leaf in frontier if R<float('inf')]
+            states[k]['nodes']=[copy.copy(leaf) for R,leaf in frontier]
             states[k]['nodes'].append(copy.copy(left))
             states[k]['zmin']=zmin
 
@@ -92,6 +92,11 @@ def algorithm(f, a, b, L, hmax=15, n=1000000, eps=0.0000001, display=False):
 
         # prossima iterazione
         k+=1
+    
+    # aggiungi nodo ottimo
+    if display:
+        states[k]={}
+        states[k]['nodes']=[copy.copy(left)]
 
     xe=left.getRight().getX()
     return (xe, z[xe], k, pruned, states, z)
@@ -106,11 +111,12 @@ IDEA:   eliminare i nodi che non soddisfano il limite e mantenere l'heap di dime
 """
 def strategy(heap,hmax,limit,key=lambda x: x):
     """
-        h<1 no depth cut
         h=0                    root
         h=1           n1                    n2       
         h=2    n3           n4       n5            n6
-        ...        
+        ...  
+        @h<hmax (ni>limit) .... 
+        @h==hmax ni .....   
     """
     length=len(heap)
     if length <= 3: return 0

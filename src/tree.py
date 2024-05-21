@@ -3,22 +3,21 @@ class BinaryTree:
         """
             Ogni nodo x dell'albero binario oltre agli attributi parent, sx e dx
             contiene informazioni quali:
-                - left, right: riferimenti ai nodi che delimitano x => [left x right]
+                - left, right: riferimenti ai nodi che delimitano x => [left, x, right]
                 - R : minorante 
                 - x : stima di xt
                 - k : iterazione di espansione del nodo 
 
             Il concetto di espansione si basa sull'idea di dato x compreso nell'intervallo [y x z]
-            generare due nodi v e w che saranno figli di x (e quindi generati da x) e rispettivamente
-            ricaderanno nell'intervallo [x.left v x] e [x w x.right].
+            generare due nodi v e w che saranno figli di x (e quindi generati da x) e che rispettivamente
+            ricadranno nell'intervallo [x.left v x] e [x w x.right] => [y v x] e [x w z].
             
             Di conseguenza, sara' necessario anche modificare lo stato del nodo x espanso che sara' contenuto
             nell'intervallo [v x w].
             
-            In questo modo si mantiene l'ordine di espansione dei nodi in un albero binario
-            in cui ogni iterazione dell'algoritmo di Piyavski-Schubert prevede la generazione 
-            di una coppia di nodi.
-
+            Questa strategia permette di avere un albero binario tale per cui:
+                1) i nodi foglia sono nodi che potrebbero essere espansi
+                2) i nodi non foglia sono nodi gia' espansi alla nodo.getK() iterazione
         """
         self.parent : BinaryTree=None
         self.sx : BinaryTree=None
@@ -162,9 +161,9 @@ class BinaryTree:
             return 1
         if self.getR() < other.getR():
             return -1
-        if self.getX() < other.getX():
+        if self.getRight().getX() < other.getRight().getX():
             return -1
-        if self.getX() > other.getX():
+        if self.getRight().getX() > other.getRight().getX():
             return 1
         return 0     
     
@@ -175,7 +174,7 @@ class BinaryTree:
             return False
         if self is other:
             return True
-        if self.getX() is not None and other.getX() is not None:
+        if self.getRight().getX() is not None and other.getRight().getX() is not None:
             return self.__cmp__(other)==0
         return False
     
@@ -187,7 +186,7 @@ class BinaryTree:
             return False
         if not isinstance(other, BinaryTree):
             return False
-        if self.getX() is not None and other.getX() is not None:
+        if self.getRight().getX() is not None and other.getRight().getX() is not None:
             return self.__cmp__(other)<=0
         return self.getR()<=other.getR()
 
@@ -196,7 +195,7 @@ class BinaryTree:
             return False
         if not isinstance(other, BinaryTree):
             return False
-        if self.getX() is not None and other.getX() is not None:
+        if self.getRight().getX() is not None and other.getRight().getX() is not None:
             return self.__cmp__(other)<0
         return self.getR()<=other.getR()
 
@@ -205,7 +204,7 @@ class BinaryTree:
             return False
         if not isinstance(other, BinaryTree):
             return False
-        if self.getX() is not None and other.getX() is not None:
+        if self.getRight().getX() is not None and other.getRight().getX() is not None:
             return self.__cmp__(other)>=0
         return self.getR()>=other.getR()
     
@@ -214,7 +213,7 @@ class BinaryTree:
             return False
         if not isinstance(other, BinaryTree):
             return False
-        if self.getX() is not None and other.getX() is not None:
+        if self.getRight().getX() is not None and other.getRight().getX() is not None:
             return self.__cmp__(other)>0
         return self.getR()>other.getR()
     

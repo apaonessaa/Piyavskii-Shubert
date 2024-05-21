@@ -20,9 +20,9 @@ def display(xstar, ystar, k, L, states, z):
         
     plt.plot(xp, yp, 'b-')
     plt.plot(xstar, ystar, 'ro')
-    plt.title("Piyavski-Shubert")
-    plt.xlabel("x")
-    plt.ylabel("f(x)")
+    plt.title('Piyavski-Shubert')
+    plt.xlabel('x')
+    plt.ylabel('f(x)')
     plt.grid(True)
 
     # Build slider
@@ -34,42 +34,51 @@ def display(xstar, ystar, k, L, states, z):
         valmax=k,
         valinit=0,
         valstep=1,
-        orientation="horizontal"
+        orientation='horizontal'
     )
 
     # Define update algorithm state@k
     def update(val):
-        k=k_slider.val-1
-        if k<0:
+        k1=k_slider.val
+        if k1<0:
             return
         ax.clear()
         ax.plot(xp, yp, 'b-')
         ax.plot(xstar, ystar, 'ro')
-        for node in states[k]['nodes']:
-            x=node.getLeft().getX()
-            y=node.getRight().getX()
-            estx=node.getX()
-            estR=node.getR()
-            if node.getX() is None:
-                # non e' minorante per la k esima iterazione
-                # calcola estimate x per nodo non minorante
-                estx=valx(L,x,y,z[x],z[y])
+    
+        if k1==k:
+            # ultima iterazione
+            pass
+        else:
+            # k-esima iterazione
+            for node in states[k1]['nodes']:
+                x=node.getLeft().getX()
+                y=node.getRight().getX()
+                estx=node.getX()
+                estR=node.getR()
+                if node.getX() is None:
+                    # non e' minorante per la k esima iterazione
+                    # calcola estimate x per nodo non minorante
+                    estx=valx(L,x,y,z[x],z[y])
 
-            ax.scatter(x,z[x],color="black")
-            ax.scatter(y,z[y],color="black")
-            
-            ax.plot([x, estx], [z[x], estR], color="grey")
-            ax.plot([estx, y], [estR, z[y]], color="grey")
+                # punti su funzione
+                ax.scatter(x,z[x],color='black')
+                ax.scatter(y,z[y],color='black')
+                
+                # minorante
+                ax.plot([x, estx], [z[x], estR], color='grey')
+                ax.plot([estx, y], [estR, z[y]], color='grey')
 
-            if node.getK()>=0:
-                ax.scatter(estx,estR,color='green')
-                ax.text(estx, estR, f'x{node.getK()+1}', fontsize=10, ha='left', va='bottom')
+                if node.getK()>=0:
+                    ax.scatter(estx,estR,color='green')
+                    ax.text(estx, estR, f'x{node.getK()+1}', fontsize=10, ha='left', va='bottom')
         
-        ax.plot(xp,[states[k]['zmin']]*len(xp), color="black")
+                # zmin
+                ax.plot(xp,[states[k1]['zmin']]*len(xp), color='black')
 
-        ax.set_title("Piyavski-Shubert")
-        ax.set_xlabel("x")
-        ax.set_ylabel("f(x)")
+        ax.set_title('Piyavski-Shubert')
+        ax.set_xlabel('x')
+        ax.set_ylabel('f(x)')
         ax.grid(True)
 
         fig.canvas.draw_idle()

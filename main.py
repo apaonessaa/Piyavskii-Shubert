@@ -4,24 +4,24 @@ import inspect
 from src.display import display
 from src.piyavskishubert import algorithm
 
-from functions import f2 as f
-from functions import t2 as params
+from functions import f0 as f
+from functions import t0 as params
 
 ##################################### Run ####################################   
 (a,b,L)=params
 
-toview=False
+toview=True
 n=1000000000
 eps=0.00001
 h=10
 
 if toview:
     n=10000
-    eps=0.00001
+    eps=0.001
     h=10
 
 t=datetime.now()
-(xstar, ystar, k, pruned, states, z) = algorithm(f, a, b, L, h, n, eps, display=toview)
+(xstar, ystar, k, pruned, states, z) = algorithm(f, a, b, L, h, n, eps*(b-a), display=toview)
 t=datetime.now()-t
 
 print("-------------------------------------------------------------------")
