@@ -29,7 +29,7 @@ mode: True
 ```
 
 If the display mode is setted, it can be possible to interact with a window which plots the input function and the solution.
-The scrollbar under the plot is defined to display, for each iteration, the node to expand and the other candidates nodes that are contained in the queue.
+The scrollbar under the plot is defined to display, for each iteration, the node to expand and the other candidate nodes that are contained in the queue.
 
 ![Figure_1](https://github.com/user-attachments/assets/4df35d3f-11c2-4f28-94fe-1e2f0474abba)
 
