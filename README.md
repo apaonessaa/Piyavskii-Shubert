@@ -1,4 +1,4 @@
-# Piyavskii-Shubert
+# Piyavskii-Shubert algorithm
 Piyavskii-Shubert algorithm implementation in python.
 
 In the repository there are:
