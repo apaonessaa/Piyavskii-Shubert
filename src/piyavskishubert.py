@@ -99,7 +99,7 @@ def algorithm(f, a, b, L, hmax=15, n=1000000, eps=0.0000001, display=False):
         states[k]['nodes']=[copy.copy(left)]
 
     xe=left.getRight().getX()
-    return (xe, z[xe], k, pruned, states, z)
+    return (xe, z[xe], k-1, pruned, states, z)
 
 """
 Dimensione dell'heap: 

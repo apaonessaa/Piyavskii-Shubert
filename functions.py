@@ -77,3 +77,12 @@ t19=(0, 6.5, 4)
 
 f20=lambda x : (math.sin(x)-x)*math.exp(-(x**2))
 t20=(-10, 10, 1.3)
+
+f21=lambda x : -x * math.sin(x)
+t21=(0, 10, 10)
+
+f22=lambda x : -(1.4 - 3.0 * x) * math.sin(18.0 * x)
+t22=(0, 1.2, 20)
+
+f23=lambda x : x**2.0 if x > 1.0 else 0.0 if x == 1.0 else 2.0 - x
+t23=[-2.0, 2.0, 10]

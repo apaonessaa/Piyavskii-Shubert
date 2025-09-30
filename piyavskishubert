@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+from argparse import ArgumentParser
+from datetime import datetime
+import inspect
+
+from src.display import display
+from src.piyavskishubert import algorithm as piyavskishubert
+
+import functions
+
+parser = ArgumentParser(
+    prog="Piyavskii-Shubert",
+    description="Piyavskii-Shubert global optimization algorithm",
+    epilog="Developed by ap3zzi"
+)
+
+parser.add_argument("-f", "--function", type=str, default="f10", help="Function to optimize (e.g. f3, f15...) (see the file 'functions.py' for available functions or add your own)")
+parser.add_argument("-n", "--max-it", type=int, default=1000000, help="Maximum number of iterations")
+parser.add_argument("-e", "--eps", type=float, default=0.001, help="Precision")
+parser.add_argument("-H", "--hmax", type=int, default=10, help="Maximum height of the tree")
+
+# Display mode default parameters
+n=10000
+eps=0.001
+h=10
+
+parser.add_argument("-d", "--display", action="store_true", help="Display mode")
+
+args = parser.parse_args()
+
+# Get the function
+f = getattr(functions, args.function)
+params = getattr(functions, 't' + args.function[1:])
+(a, b, L) = params
+
+if not args.display:
+    n=args.max_it
+    eps=args.eps
+    h=args.hmax
+
+t=datetime.now()
+(xstar, ystar, k, pruned, states, z) = piyavskishubert(f, a, b, L, h, n, eps*(b-a), display=args.display)
+t=datetime.now()-t
+
+print("\n-------------------------------------------------------------------")
+print()
+print(f"Piyavski Schubert for the function {inspect.getsourcelines(f)[0][0].split('=')[0]} such that x in [{a},{b}], and L={L}")
+print(f"eps={eps}")
+print(f"n={n}")
+print(f"hmax={h}")
+print()
+print(f"(xstar,ystar): ({xstar},{ystar})")
+print()
+print(f"k: {k}")
+print(f"pruned: {pruned} nodes")
+print(f"time: {t} s")
+print()
+if args.display:
+    print(f"> Display mode")
+    print()
+print("-------------------------------------------------------------------\n")
+
+if args.display: 
+    display(xstar, ystar, k, L, states, z)
