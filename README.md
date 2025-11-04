@@ -13,7 +13,7 @@ This repository provides a Python implementation of the **Piyavskii–Shubert al
 
 The **Piyavskii–Shubert algorithm** is a deterministic method for **global optimization** of 1D Lipschitz-continuous functions. Given a known Lipschitz constant \( L \), it constructs lower bounds using piecewise linear underestimators and iteratively refines the search interval to converge toward the global minimum.
 
-### **Tree-Based Search Strategy**
+### Tree-Based Search Strategy
 
 This implementation extends the classical method using a **tree structure** to manage intervals in a priority queue. The tree allows the algorithm to:
 
