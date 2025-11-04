@@ -126,7 +126,7 @@ To test custom functions:
 
 ## Credits
 
-This project was made by [@apaonessaa](https://github.com/apaonessaa)
+This project was made by [@apaonessaa](https://github.com/apaonessaa).
 
 ## License
 
