@@ -1,23 +1,19 @@
-# Piyavskii–Shubert Global Optimization Algorithm
+# **Piyavskii–Shubert Global Optimization Algorithm**
 
 This repository provides a Python implementation of the **Piyavskii–Shubert algorithm**, a global optimization method designed for **Lipschitz-continuous functions**.
 
----
+## **Repository Structure**
 
-## Repository Structure
+- **piyavskishubert** – Main entry point for running the algorithm.
+- **src/** – Contains the core implementation of the algorithm, including tree-based search logic.
+- **functions.py** – Collection of benchmark test functions (you can add your own here).
+- **results.txt** – Stores the output of test runs and results.
 
-- `piyavskishubert` – Main entry point for running the algorithm.
-- `src/` – Contains the core implementation of the algorithm, including tree-based search logic.
-- `functions.py` – Collection of benchmark test functions (you can add your own here).
-- `results.txt` – Stores the output of test runs and results.
-
----
-
-## What Is the Piyavskii–Shubert Algorithm?
+## **What Is the Piyavskii–Shubert Algorithm?**
 
 The **Piyavskii–Shubert algorithm** is a deterministic method for **global optimization** of 1D Lipschitz-continuous functions. Given a known Lipschitz constant \( L \), it constructs lower bounds using piecewise linear underestimators and iteratively refines the search interval to converge toward the global minimum.
 
-### Tree-Based Search Strategy
+### **Tree-Based Search Strategy**
 
 This implementation extends the classical method using a **tree structure** to manage intervals in a priority queue. The tree allows the algorithm to:
 
@@ -27,28 +23,24 @@ This implementation extends the classical method using a **tree structure** to m
 
 This pruning mechanism significantly improves performance by discarding regions of the domain that cannot contain the global minimum.
 
----
-
-## Usage
+## **Usage**
 
 ```bash
-Piyavskii-Shubert [-h] [-f FUNCTION] [-n MAX_IT] [-e EPS] [-H HMAX] [-d]
+piyavskishubert [-h] [-f FUNCTION] [-n MAX_IT] [-e EPS] [-H HMAX] [-d]
 ````
 
 ### Options:
 
 | Flag           | Description                                                                 |
 | -------------- | --------------------------------------------------------------------------- |
-| `-h`, `--help` | Show the help message and exit                                              |
-| `-f FUNCTION`  | Function to optimize (e.g. `f3`, `f15`...) – see `functions.py`             |
-| `-n MAX_IT`    | Maximum number of iterations                                                |
-| `-e EPS`       | Desired precision                                                           |
-| `-H HMAX`      | Maximum height of the tree (controls depth of search)                       |
-| `-d`           | Enable **Display Mode** (interactive visualization of optimization process) |
+| -h, --help | Show the help message and exit                                              |
+| -f FUNCTION  | Function to optimize (e.g. f3, f15...) – see functions.py             |
+| -n MAX_IT    | Maximum number of iterations                                                |
+| -e EPS       | Desired precision                                                           |
+| -H HMAX      | Maximum height of the tree (controls depth of search)                       |
+| -d           | Enable **Display Mode** (interactive visualization of optimization process) |
 
----
-
-## Display Mode
+## **Display Mode**
 
 In **Display Mode**, a graphical interface is shown to visualize the function, the interval nodes, and the search process.
 
@@ -80,8 +72,6 @@ A **scrollbar** under the plot allows you to browse through each iteration, show
 
 > **Note:** To avoid UI rendering issues, display mode runs with preset parameters. You can customize these by modifying the script directly.
 
----
-
 ## Compute Mode (Headless Execution)
 
 **Compute Mode** allows you to run the optimization without displaying the function or nodes. Ideal for benchmarks, batch runs, or headless environments.
@@ -105,7 +95,7 @@ time: 0.0076 s
 
 ### Performance Tip
 
-Reducing the maximum tree height (`Hmax`) can lead to **better performance** with similar accuracy.
+Reducing the maximum tree height (**Hmax**) can lead to **better performance** with similar accuracy.
 
 ```bash
 $ ./piyavskishubert -e 0.000001 -H 5 -n 100000 -f f10
@@ -126,14 +116,12 @@ time: 0.0024 s
 
 Here, the same optimal solution was found in **less than half the time**, thanks to limiting the tree height.
 
----
-
-## Add Your Own Functions
+## **Add Your Own Functions**
 
 To test custom functions:
 
-1. Open `functions.py`
-2. Define your function as `def fXX(x):` where `XX` is a unique identifier.
+1. Open **functions.py**
+2. Define your function as **def fXX(x):** where **XX** is a unique identifier.
 3. Specify the domain and Lipschitz constant accordingly.
 
 ---
