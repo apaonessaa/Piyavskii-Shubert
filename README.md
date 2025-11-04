@@ -128,4 +128,8 @@ To test custom functions:
 
 This project was made by [@apaonessaa](https://github.com/apaonessaa)
 
+## **License**
+
+This repository is licensed under the GNU GPL v3.
+
 ---
