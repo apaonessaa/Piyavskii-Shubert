@@ -124,4 +124,8 @@ To test custom functions:
 2. Define your function as **def fXX(x):** where **XX** is a unique identifier.
 3. Specify the domain and Lipschitz constant accordingly.
 
+## **Credits**
+
+This project was made by [@apaonessaa](https://github.com/apaonessaa)
+
 ---
